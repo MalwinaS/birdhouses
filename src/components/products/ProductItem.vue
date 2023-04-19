@@ -22,7 +22,7 @@ export default {
   },
 };
 </script>
-s
+
 <style scoped>
 li {
   margin: 1rem 0;
