@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import HousesList from "./pages/HousesList.vue";
+import HousesList from "./pages/ProductsTable.vue";
 import HouseDetails from "./pages/HouseDetails.vue";
 
 
