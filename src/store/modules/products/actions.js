@@ -5,6 +5,7 @@ export default {
         name: data.name,
         description: data.desc,
         price: data.price,
+        category: data.category,
       };
       context.commit("addProduct", productData);
     },
