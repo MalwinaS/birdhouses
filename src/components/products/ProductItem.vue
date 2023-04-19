@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  props: ["id", "name", "price", "description", "category"],
+  props: ["id", "name", "price", "category"],
   computed: {
     productContactLink() {
       return this.$route.path + "/" + this.id + "/contact";
@@ -22,7 +22,7 @@ export default {
   },
 };
 </script>
-
+s
 <style scoped>
 li {
   margin: 1rem 0;

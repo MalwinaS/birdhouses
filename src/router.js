@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import HousesList from "./pages/ProductsTable.vue";
-import HouseDetails from "./pages/HouseDetails.vue";
+import HousesList from "./pages/HousesList.vue";
+import NewProduct from "./pages/NewProduct.vue";
 
 
 const router = createRouter({
@@ -9,11 +9,12 @@ const router = createRouter({
   routes: [
     { path: "/", redirect: "/birdhouses/" },
     { path: "/birdhouses/", component: HousesList },
-    {
-      path: "/birdhouses/:id",
-      component: HouseDetails,
-      props: true,
-    },
+    { path: "/new-product/", component: NewProduct },
+    // {
+    //   path: "/birdhouses/:id",
+    //   component: HouseDetails,
+    //   props: true,
+    // },
   ],
 });
 

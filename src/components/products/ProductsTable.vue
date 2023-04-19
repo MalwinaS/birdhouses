@@ -1,5 +1,6 @@
 <template>
   <base-card>
+    <input v-model="searchTerm" type="text" placeholder="Search..." />
     <table>
       <tr>
         <th @click="sortList('id')">ID &#8597;</th>
@@ -21,7 +22,19 @@
 
 <script>
 export default {
-  name: "ItemList",
+  data() {
+    return {
+      sortedData: [],
+      sortedbyASC: true,
+      searchTerm: "",
+    };
+  },
+  provide() {
+    return {
+      productlist: this.products,
+      addProduct: this.addProduct,
+    };
+  },
   computed: {
     filteredProducts() {
       return this.$store.getters["products/products"];
@@ -29,12 +42,6 @@ export default {
     hasProducts() {
       return this.$store.getters["products/hasProducts"];
     },
-  },
-  data() {
-    return {
-      sortedData: [],
-      sortedbyASC: true,
-    };
   },
   mounted() {
     this.sortedData = this.filteredProducts;
@@ -50,11 +57,20 @@ export default {
         this.sortedbyASC = true;
       }
     },
+    addMovie(title, description) {
+      const newProduct = {
+        id: new Date().toISOString(),
+        title: title,
+        description: description,
+      };
+      this.product.unshift(newProduct);
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
+
 table {
   border-collapse: collapse;
   width: 100%;
@@ -74,5 +90,23 @@ th:hover {
 
 tr:nth-child(even) {
   background-color: #f3f3f3;
+}
+
+.form-control {
+  display: block;
+  margin: 20px auto 0;
+  width: 50%;
+  padding: 10px;
+}
+input {
+  width: 90%;
+  display: block;
+  margin: 0 auto 10px;
+  padding: 12px 12px;
+  color: black;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 8px;
+  background-color: white;
+  font-size: 20px;
 }
 </style>
