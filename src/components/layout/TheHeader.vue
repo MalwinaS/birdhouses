@@ -4,6 +4,7 @@
         <h1><router-link to="/">Birds & Houses</router-link></h1>
         <ul>
           <li><router-link to="/birdhouses">Lista produktów</router-link></li>
+          <li><router-link to="/new-product">Dodaj produkt</router-link></li>
         </ul>
       </nav>
     </header>
