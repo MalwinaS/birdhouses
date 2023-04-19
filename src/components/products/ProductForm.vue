@@ -31,16 +31,6 @@
         />
         <p v-if="!price.isValid">R</p>
       </div>
-      <!-- <div class="form-control" :class="{ invalid: !category.isValid }">
-        <label for="category">Kategoria</label>
-        <input
-          type="text"
-          id="category"
-          v-model.trim="category.val"
-          @blur="clearValidity('category')"
-        />
-        <p v-if="!category.isValid">R</p>
-      </div> -->
       <div class="form-control" :class="{ invalid: !category.isValid }">
       <h3>Kategoria</h3>
       <div>
