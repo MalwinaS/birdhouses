@@ -5,7 +5,6 @@
     </div>
     <table>
       <tr>
-        <th @click="sortList('id')">ID &#8597;</th>
         <th @click="sortList('name')">Nazwa &#8597;</th>
         <th @click="sortList('description')">Opis &#8597;</th>
         <th @click="sortList('price')">Cena &#8597;</th>
@@ -13,10 +12,9 @@
         <th @click="sortList('animal')">Zwierzęta &#8597;</th>
       </tr>
       <tr v-for="(product, index) in filteredProducts" :key="index">
-        <td>{{ product.id }}</td>
         <td>{{ product.name }}</td>
         <td>{{ product.description }}</td>
-        <td>{{ product.price }}</td>
+        <td>{{ product.price }} PLN</td>
         <td>{{ product.category }}</td>
         <td>{{ product.animal }}</td>
       </tr>

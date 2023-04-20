@@ -20,7 +20,7 @@ export default {
           name: "Domek dla kotów",
           category: "ziemia",
           animal: "kot",
-          description: "Idealny domek dla ptaków do zamontowania na ziemi",
+          description: "Idealny domek dla kotów do zamontowania na ziemi",
           price: 130,
         },
         {
@@ -28,7 +28,8 @@ export default {
           name: "Domek dla ptaków",
           category: "drzewo",
           animal: "ptaki",
-          description: "Idealny domek dla ptaków do zamontowania na ziemi - mały",
+          description:
+            "Idealny domek dla ptaków do zamontowania na ziemi - mały",
           price: 50,
         },
       ],
