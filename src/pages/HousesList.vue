@@ -1,5 +1,4 @@
 <template>
-  <search-bar @search="handleSearch" ></search-bar>
   <products-table></products-table>
 </template>
 

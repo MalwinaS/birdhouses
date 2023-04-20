@@ -1,6 +1,8 @@
 <template>
   <base-card>
-    <input v-model="searchTerm" type="text" placeholder="Search..." />
+    <div>
+      <input type="text" v-model="searchTerm" placeholder="Search..." />
+    </div>
     <table>
       <tr>
         <th @click="sortList('id')">ID &#8597;</th>
@@ -10,7 +12,7 @@
         <th @click="sortList('category')">Kategoria &#8597;</th>
         <th @click="sortList('animal')">Zwierzęta &#8597;</th>
       </tr>
-      <tr v-for="product in sortedData" :key="product">
+      <tr v-for="(product, index) in filteredProducts" :key="index">
         <td>{{ product.id }}</td>
         <td>{{ product.name }}</td>
         <td>{{ product.description }}</td>
@@ -38,8 +40,36 @@ export default {
     };
   },
   computed: {
-    filteredProducts() {
+    tableData() {
       return this.$store.getters["products/products"];
+    },
+    filteredProducts() {
+      if (!this.searchTerm) {
+        return this.tableData;
+      } else {
+        return this.tableData.filter((product) => {
+          const searchTermAsNumber = Number(this.searchTerm);
+          const column1AsNumber = Number(product.price);
+          if (!isNaN(searchTermAsNumber)) {
+            return column1AsNumber === searchTermAsNumber;
+          } else {
+            return (
+              product.name
+                .toLowerCase()
+                .includes(this.searchTerm.toLowerCase()) ||
+              product.description
+                .toLowerCase()
+                .includes(this.searchTerm.toLowerCase()) ||
+              product.category
+                .toLowerCase()
+                .includes(this.searchTerm.toLowerCase()) ||
+              product.animal
+                .toLowerCase()
+                .includes(this.searchTerm.toLowerCase())
+            );
+          }
+        });
+      }
     },
     hasProducts() {
       return this.$store.getters["products/hasProducts"];
@@ -47,7 +77,6 @@ export default {
   },
   mounted() {
     this.sortedData = this.filteredProducts;
-    console.log(this.filteredProducts);
   },
   methods: {
     sortList(sortBy) {
@@ -59,20 +88,11 @@ export default {
         this.sortedbyASC = true;
       }
     },
-    addMovie(title, description) {
-      const newProduct = {
-        id: new Date().toISOString(),
-        title: title,
-        description: description,
-      };
-      this.product.unshift(newProduct);
-    },
   },
 };
 </script>
 
 <style scoped>
-
 table {
   border-collapse: collapse;
   width: 100%;
@@ -106,7 +126,7 @@ input {
   margin: 0 auto 10px;
   padding: 12px 12px;
   color: black;
-  border: 1px solid rgba(0, 0, 0, .2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   background-color: white;
   font-size: 20px;
