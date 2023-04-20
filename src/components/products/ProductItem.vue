@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  props: ["id", "name", "price", "category"],
+  props: ["id", "name", "price", "category", "animals"],
   computed: {
     productContactLink() {
       return this.$route.path + "/" + this.id + "/contact";
