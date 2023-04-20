@@ -51,9 +51,12 @@
 
     <h3>Zwierzęta</h3>
     <div v-for="(animal, index) in filteredAnimal" :key="index">
-      <input type="checkbox" />{{ animal.animal }}
+      <input
+        type="checkbox"
+        v-model="checkedAnimals"
+        :value="animal.animal"
+      />{{ animal.animal }}
     </div>
-
     <p v-if="!animal.isValid"></p>
 
     <p v-if="!formIsValid">Proszę, wypełnij wszystkie pola</p>
@@ -87,6 +90,7 @@ export default {
         val: null,
         isValid: true,
       },
+      checkedAnimals: [],
       formIsValid: true,
     };
   },
@@ -117,10 +121,10 @@ export default {
         this.category.isValid = false;
         this.formIsValid = false;
       }
-      // if (this.animal.val.length === 0) {
-      //   this.animal.isValid = false;
-      //   this.formIsValid = false;
-      // }
+      if (this.checkedAnimals.length === 0) {
+        this.animal.isValid = false;
+        this.formIsValid = false;
+      }
     },
     submitForm() {
       this.validateForm();
@@ -134,13 +138,11 @@ export default {
         desc: this.description.val,
         price: this.price.val,
         category: this.category.val,
-        animal: this.animal.val,
-        // animal: this.animal.val.toString(),
+        animal: this.checkedAnimals.toString(),
       };
       this.$emit("save-data", formData);
     },
   },
-
 };
 </script>
 
