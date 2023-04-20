@@ -29,7 +29,7 @@
         v-model.number="price.val"
         @blur="clearValidity('price')"
       />
-      <p v-if="!price.isValid">R</p>
+      <p v-if="!price.isValid">Uzupełnij wartość</p>
     </div>
 
     <div class="form-control" :class="{ invalid: !category.isValid }">
@@ -50,26 +50,10 @@
     </div>
 
     <h3>Zwierzęta</h3>
-    <div>
-      <input
-        type="checkbox"
-        id="house"
-        value="kot"
-        v-model="animal.val"
-        @blur="clearValidity('animal')"
-      />
-      <label for="cat">Kot</label>
+    <div v-for="(animal, index) in filteredAnimal" :key="index">
+      <input type="checkbox" />{{ animal.animal }}
     </div>
-    <div>
-      <input
-        type="checkbox"
-        id="bird"
-        value="ptak"
-        v-model="animal.val"
-        @blur="clearValidity('animal')"
-      />
-      <label for="bird">Ptak</label>
-    </div>
+
     <p v-if="!animal.isValid"></p>
 
     <p v-if="!formIsValid">Proszę, wypełnij wszystkie pola</p>
@@ -100,11 +84,16 @@ export default {
         isValid: true,
       },
       animal: {
-        val: [],
+        val: null,
         isValid: true,
       },
       formIsValid: true,
     };
+  },
+  computed: {
+    filteredAnimal() {
+      return this.$store.getters["animals/animal"];
+    },
   },
   methods: {
     clearValidity(input) {
@@ -128,10 +117,10 @@ export default {
         this.category.isValid = false;
         this.formIsValid = false;
       }
-      if (this.animal.val.length === 0) {
-        this.animal.isValid = false;
-        this.formIsValid = false;
-      }
+      // if (this.animal.val.length === 0) {
+      //   this.animal.isValid = false;
+      //   this.formIsValid = false;
+      // }
     },
     submitForm() {
       this.validateForm();
@@ -145,11 +134,13 @@ export default {
         desc: this.description.val,
         price: this.price.val,
         category: this.category.val,
-        animal: this.animal.val[0],
+        animal: this.animal.val,
+        // animal: this.animal.val.toString(),
       };
       this.$emit("save-data", formData);
     },
   },
+
 };
 </script>
 
