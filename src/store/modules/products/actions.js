@@ -6,6 +6,7 @@ export default {
         description: data.desc,
         price: data.price,
         category: data.category,
+        animal: data.animal,
       };
       context.commit("addProduct", productData);
     },

@@ -8,6 +8,7 @@
         <th @click="sortList('description')">Opis &#8597;</th>
         <th @click="sortList('price')">Cena &#8597;</th>
         <th @click="sortList('category')">Kategoria &#8597;</th>
+        <th @click="sortList('animal')">Zwierzęta &#8597;</th>
       </tr>
       <tr v-for="product in sortedData" :key="product">
         <td>{{ product.id }}</td>
@@ -15,6 +16,7 @@
         <td>{{ product.description }}</td>
         <td>{{ product.price }}</td>
         <td>{{ product.category }}</td>
+        <td>{{ product.animal }}</td>
       </tr>
     </table>
   </base-card>
