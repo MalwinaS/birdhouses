@@ -99,7 +99,13 @@ export default {
       return this.$store.getters["animals/animal"];
     },
   },
+  created() {
+    this.loadAnimals();
+  },
   methods: {
+    loadAnimals() {
+      this.$store.dispatch("animals/loadAnimals");
+    },
     clearValidity(input) {
       this[input].isValid = true;
     },
@@ -135,7 +141,7 @@ export default {
 
       const formData = {
         name: this.name.val,
-        desc: this.description.val,
+        description: this.description.val,
         price: this.price.val,
         category: this.category.val,
         animal: this.checkedAnimals.toString(),

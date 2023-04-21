@@ -1,7 +1,7 @@
 <template>
   <section>
     <base-card>
-      <h2>Wprowadź nowy produkt</h2>
+      <h2>Wprowadź nową kategorię - zwierzęta</h2>
       <category-form @save-animal="saveAnimal"></category-form>
     </base-card>
   </section>

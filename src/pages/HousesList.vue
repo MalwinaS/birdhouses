@@ -9,10 +9,15 @@ export default {
   components: {
     ProductsTable,
   },
-
+  created() {
+    this.loadProducts();
+  },
+  methods: {
+    loadProducts() {
+      this.$store.dispatch("products/loadProducts");
+    },
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
