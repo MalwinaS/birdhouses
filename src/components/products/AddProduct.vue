@@ -16,7 +16,14 @@ export default {
     saveData(data) {
       this.$store.dispatch("products/addProduct", data);
       this.$router.replace("/birdhouses/");
+      this.loadProducts()
     },
+    loadProducts() {
+      this.$store.dispatch("products/loadProducts");
+    },
+  },
+  created() {
+    this.loadProducts();
   },
 };
 </script>
