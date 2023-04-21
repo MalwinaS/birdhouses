@@ -14,9 +14,16 @@ export default {
   components: { CategoryForm },
   methods: {
     saveAnimal(data) {
-        this.$store.dispatch("animals/addAnimal", data);
-        this.$router.replace("/new-product/");
-      },
+      this.$store.dispatch("animals/addAnimal", data);
+      this.$router.replace("/new-product/");
+      this.loadAnimals();
+    },
+    loadAnimals() {
+      this.$store.dispatch("animals/loadAnimals");
+    },
+  },
+  created() {
+    this.loadAnimals();
   },
 };
 </script>
