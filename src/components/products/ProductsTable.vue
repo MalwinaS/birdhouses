@@ -3,18 +3,25 @@
     <div>
       <input type="text" v-model="searchTerm" placeholder="Search..." />
     </div>
+     <div>
+      <base-button v-for="(currency, index) in currencies" :key="index" @click="changeCurrency(currency)">
+        {{ currency }}
+      </base-button>
+    </div>
     <table>
       <tr>
         <th @click="sortList('name')">Nazwa &#8597;</th>
         <th @click="sortList('description')">Opis &#8597;</th>
         <th @click="sortList('price')">Cena &#8597;</th>
+        <th @click="sortList('currency')">Waluta inna &#8597;</th>
         <th @click="sortList('category')">Kategoria &#8597;</th>
         <th @click="sortList('animal')">Zwierzęta &#8597;</th>
       </tr>
-      <tr v-for="(product, index) in filteredProducts" :key="index">
+      <tr v-for="(product, index) in tableData" :key="index">
         <td>{{ product.name }}</td>
         <td>{{ product.description }}</td>
         <td>{{ product.price }} PLN</td>
+        <td>{{ formatPrice(product.price)}}</td>
         <td>{{ product.category }}</td>
         <td>{{ product.animal }}</td>
       </tr>
@@ -29,6 +36,11 @@ export default {
       sortedData: [],
       sortedbyASC: true,
       searchTerm: "",
+      
+
+      currency: "PLN",
+      currencies: ["USD", "EUR", "GBP"], 
+      conversionRates: {}, 
     };
   },
   provide() {
@@ -75,16 +87,37 @@ export default {
   },
   mounted() {
     this.sortedData = this.filteredProducts;
+      this.getConversionRates();
   },
   methods: {
     sortList(sortBy) {
       if (this.sortedbyASC) {
-        this.sortedData.sort((x, y) => (x[sortBy] > y[sortBy] ? -1 : 1));
+        this.tableData.sort((x, y) => (x[sortBy] > y[sortBy] ? -1 : 1));
         this.sortedbyASC = false;
       } else {
-        this.sortedData.sort((x, y) => (x[sortBy] < y[sortBy] ? -1 : 1));
+        this.tableData.sort((x, y) => (x[sortBy] < y[sortBy] ? -1 : 1));
         this.sortedbyASC = true;
       }
+    },
+    async getConversionRates() {
+      const response = await fetch(`https://api.exchangerate-api.com/v4/latest/${this.currency}`);
+      const data = await response.json();
+      this.conversionRates = data.rates;
+    },
+    changeCurrency(currency) {
+      this.currency = currency;
+      this.getConversionRates();
+    },
+    formatPrice(price) {
+    //   const price = this.product.price
+      // Convert the price to the selected currency and format it
+      const convertedPrice = price * this.conversionRates[this.currency];
+      console.log(this.currency)
+      console.log(this.conversionRates[this.currency])
+      console.log(price)
+      console.log(convertedPrice)
+      // return price
+      return new Intl.NumberFormat("en-US", { style: "currency", currency: this.currency }).format(convertedPrice);
     },
   },
 };
