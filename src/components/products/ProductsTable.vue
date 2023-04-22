@@ -4,8 +4,8 @@
       <input type="text" v-model="searchTerm" placeholder="Search..." />
     </div>
      <div>
-      <base-button v-for="(currency, index) in currencies" :key="index" @click="changeCurrency(currency)">
-        {{ currency }}
+      <base-button v-for="(current_currency, index) in currencies" :key="index" @click="changeCurrency(current_currency)">
+        {{ current_currency }}
       </base-button>
     </div>
     <table>
@@ -33,19 +33,16 @@
 export default {
   data() {
     return {
-      sortedData: [],
       sortedbyASC: true,
       searchTerm: "",
       
-
-      currency: "PLN",
+      currency: "EUR",
       currencies: ["USD", "EUR", "GBP"], 
       conversionRates: {}, 
     };
   },
   provide() {
     return {
-      productlist: this.products,
       addProduct: this.addProduct,
     };
   },
@@ -86,7 +83,6 @@ export default {
     },
   },
   mounted() {
-    this.sortedData = this.filteredProducts;
       this.getConversionRates();
   },
   methods: {
@@ -100,7 +96,7 @@ export default {
       }
     },
     async getConversionRates() {
-      const response = await fetch(`https://api.exchangerate-api.com/v4/latest/${this.currency}`);
+      const response = await fetch(`https://api.exchangerate-api.com/v4/latest/pln`);
       const data = await response.json();
       this.conversionRates = data.rates;
     },
@@ -109,14 +105,7 @@ export default {
       this.getConversionRates();
     },
     formatPrice(price) {
-    //   const price = this.product.price
-      // Convert the price to the selected currency and format it
       const convertedPrice = price * this.conversionRates[this.currency];
-      console.log(this.currency)
-      console.log(this.conversionRates[this.currency])
-      console.log(price)
-      console.log(convertedPrice)
-      // return price
       return new Intl.NumberFormat("en-US", { style: "currency", currency: this.currency }).format(convertedPrice);
     },
   },
