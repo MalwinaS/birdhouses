@@ -17,7 +17,7 @@
         <th @click="sortList('category')">Kategoria &#8597;</th>
         <th @click="sortList('animal')">Zwierzęta &#8597;</th>
       </tr>
-      <tr v-for="(product, index) in tableData" :key="index">
+      <tr v-for="(product, index) in filteredProducts" :key="index">
         <td>{{ product.name }}</td>
         <td>{{ product.description }}</td>
         <td>{{ product.price }} PLN</td>
@@ -33,6 +33,7 @@
 export default {
   data() {
     return {
+      sortedData: [],
       sortedbyASC: true,
       searchTerm: "",
       
@@ -43,6 +44,7 @@ export default {
   },
   provide() {
     return {
+      productlist: this.products,
       addProduct: this.addProduct,
     };
   },
@@ -83,6 +85,7 @@ export default {
     },
   },
   mounted() {
+    this.sortedData = this.filteredProducts;
       this.getConversionRates();
   },
   methods: {
