@@ -1,5 +1,7 @@
 # birdhouses
 
+Live: https://malwinas.github.io/birdhouses/
+
 ## Project setup
 ```
 npm install
