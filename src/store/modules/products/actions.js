@@ -10,7 +10,7 @@ export default {
     };
 
     const response = await fetch(
-      `https://animalhouses-cc0e5-default-rtdb.firebaseio.com/products/${productId}.json`,
+      `https://animalhouse-9b281-default-rtdb.firebaseio.com/products/${productId}.json`,
       {
         method: "PUT",
         body: JSON.stringify(productData),
@@ -30,7 +30,7 @@ export default {
   async loadProducts(context) {
     const productId = context.rootGetters.productId;
     const response = await fetch(
-      `https://animalhouses-cc0e5-default-rtdb.firebaseio.com/products.json`
+      `https://animalhouse-9b281-default-rtdb.firebaseio.com/products.json`
     );
     const responseData = await response.json();
 
