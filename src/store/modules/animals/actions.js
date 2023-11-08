@@ -7,7 +7,8 @@ export default {
     };
 
     const response = await fetch(
-      `https://animalhouse-9b281-default-rtdb.firebaseio.com/animal/${animalId}.json`,
+      `https://animalhouse08-11-default-rtdb.firebaseio.com/animal/${animalId}.json`,
+      // `https://animalhouse-9b281-default-rtdb.firebaseio.com/animal/${animalId}.json`,
       {
         method: "PUT",
         body: JSON.stringify(animalData),
@@ -27,7 +28,8 @@ export default {
   async loadAnimals(context) {
     const animalId = context.rootGetters.animalId;
     const response = await fetch(
-      `https://animalhouse-9b281-default-rtdb.firebaseio.com/animal.json`
+      // `https://animalhouse-9b281-default-rtdb.firebaseio.com/animal.json`
+      `https://animalhouse08-11-default-rtdb.firebaseio.com/animal.json`
     );
     const responseData = await response.json();
 
